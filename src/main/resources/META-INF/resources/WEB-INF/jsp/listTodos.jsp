@@ -5,8 +5,9 @@
 		<title>List Todos Page</title>
 	</head>
 	<body>
-		<div>Welcome user ${name}</div>
-		<div>Your Todos are ${todos}</div>
+		<div>Welcome ${name}</div>
+		<hr>
+		<h1>Your Todos</h1>
 		<table>
 			<thead>
 				<tr>
