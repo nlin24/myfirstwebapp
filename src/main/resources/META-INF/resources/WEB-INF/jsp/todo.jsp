@@ -14,6 +14,7 @@
 				<form:errors path="description" cssClass="text-warning"/>
 				<form:input type="hidden" path="id"/>
 				<form:input type="hidden" path="done"/>
+				<form:input type="hidden" path="targetDate"/>
 				<br>
 				<input type="submit" class="btn btn-success"/>
 			</form:form>
