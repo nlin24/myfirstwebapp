@@ -12,10 +12,14 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
 public class SpringSecurityConfiguration {
-	// Use in memory for ease of setup
-	// Use a local BCryptPasswordEncoder
 	
+	// The passwordEncoer function of the UserDetails object builder takes a lambda function.
+	// Build the lambda function that takes a String password input and encode with BCryptPasswordEncoder.
 	Function<String, String> passwordEncoder = input -> passwordEncoder().encode(input);
+	
+	
+	// Use in memory for ease of setup
+	// Use a local BCryptPasswordEncoder	
 	@Bean
 	public InMemoryUserDetailsManager createUserDetailsManager() {
 		UserDetails userDetails = User.builder()
