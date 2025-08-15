@@ -14,7 +14,8 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 public class SpringSecurityConfiguration {
 	
 	// The passwordEncoer function of the UserDetails object builder takes a lambda function.
-	// Build the lambda function that takes a String password input and encode with BCryptPasswordEncoder.
+	// Build the lambda function that takes a String password input and return a String output. 
+	// This encodes the input string with BCryptPasswordEncoder and then return String.
 	Function<String, String> passwordEncoder = input -> passwordEncoder().encode(input);
 	
 	
@@ -22,18 +23,19 @@ public class SpringSecurityConfiguration {
 	// Use a local BCryptPasswordEncoder	
 	@Bean
 	public InMemoryUserDetailsManager createUserDetailsManager() {
+		// Create a new InMemoryUserDetailManager consuming an User object producing an userDetails interface
 		UserDetails userDetails = User.builder()
-				.passwordEncoder(passwordEncoder)
-				.username("in28minutes")
-				.password("dummy")
-				.roles("USER", "ADMIN")
-				.build();
-		
+									.passwordEncoder(passwordEncoder)
+									.username("in28minutes")
+									.password("dummy")
+									.roles("USER", "ADMIN")
+									.build();
 		return new InMemoryUserDetailsManager(userDetails);
 	}
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
+		// Create a BCrypt Password Encoder
 		return new BCryptPasswordEncoder();
 	}
 	
