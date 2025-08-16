@@ -16,7 +16,6 @@ public class SpringSecurityConfiguration {
 	// The passwordEncoer function of the UserDetails object builder takes a lambda function.
 	// Build the lambda function that takes a String password input and return a String output. 
 	// This encodes the input string with BCryptPasswordEncoder and then return String.
-	Function<String, String> passwordEncoder = input -> passwordEncoder().encode(input);
 	
 	
 	// Use in memory for ease of setup
@@ -24,13 +23,20 @@ public class SpringSecurityConfiguration {
 	@Bean
 	public InMemoryUserDetailsManager createUserDetailsManager() {
 		// Create a new InMemoryUserDetailManager consuming an User object producing an userDetails interface
+		UserDetails userDetails1 = createNewUser("in28minutes", "dummy");
+		UserDetails userDetails2 = createNewUser("ranga", "dummydummy");
+		return new InMemoryUserDetailsManager(userDetails1, userDetails2);
+	}
+
+	private UserDetails createNewUser(String username, String password) {
+		Function<String, String> passwordEncoder = input -> passwordEncoder().encode(input);
 		UserDetails userDetails = User.builder()
 									.passwordEncoder(passwordEncoder)
-									.username("in28minutes")
-									.password("dummy")
+									.username(username)
+									.password(password)
 									.roles("USER", "ADMIN")
 									.build();
-		return new InMemoryUserDetailsManager(userDetails);
+		return userDetails;
 	}
 
 	@Bean
